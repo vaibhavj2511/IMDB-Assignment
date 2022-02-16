@@ -1,0 +1,57 @@
+CREATE TABLE [dbo].[Actors](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[Gender] [varchar](10) NULL,
+	[DOB] [date] NULL,
+	[Bio] [varchar](250) NULL,
+	PRIMARY KEY ([ID]))
+
+
+CREATE TABLE [dbo].[Genres](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	PRIMARY KEY ([ID]))
+
+CREATE TABLE [dbo].[MovieActorMapping](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[MoviesId] [int] NULL,
+	[ActorsId] [int] NULL,
+	PRIMARY KEY ([ID]))
+
+CREATE TABLE [dbo].[MovieGenreMapping](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[MoviesId] [int] NULL,
+	[GenresId] [int] NULL,
+	PRIMARY KEY ([ID]))
+
+CREATE TABLE [dbo].[Movies](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[YOR] [int] NULL,
+	[Plot] [varchar](250) NULL,
+	[ProducersId] [int] NULL,
+	PRIMARY KEY ([ID]))
+
+CREATE TABLE [dbo].[Producers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[Gender] [varchar](10) NULL,
+	[DOB] [date] NULL,
+	[Bio] [varchar](250) NULL,
+	PRIMARY KEY ([ID]))
+
+
+ALTER TABLE [dbo].[MovieActorMapping]  WITH CHECK ADD FOREIGN KEY([ActorsId])
+REFERENCES [dbo].[Actors] ([Id])
+
+ALTER TABLE [dbo].[MovieActorMapping]  WITH CHECK ADD FOREIGN KEY([MoviesId])
+REFERENCES [dbo].[Movies] ([Id])
+
+ALTER TABLE [dbo].[MovieGenreMapping]  WITH CHECK ADD FOREIGN KEY([GenresId])
+REFERENCES [dbo].[Genres] ([Id])
+
+ALTER TABLE [dbo].[MovieGenreMapping]  WITH CHECK ADD FOREIGN KEY([MoviesId])
+REFERENCES [dbo].[Movies] ([Id])
+
+ALTER TABLE [dbo].[Movies]  WITH CHECK ADD FOREIGN KEY([ProducersId])
+REFERENCES [dbo].[Producers] ([Id])
